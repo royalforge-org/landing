@@ -1,0 +1,278 @@
+---
+const partners = [
+  {
+    name: 'Montiva Group',
+    logo: '/isotype-dark-bg.svg',
+    website: 'https://montivagroup.com',
+    description: 'Strategic Technology Partner'
+  },
+];
+
+
+const allPartners = [...partners];
+const isSinglePartner = allPartners.length === 1;
+---
+
+<section class="partners-section">
+  <div class="partners-container">
+    <div class="partners-header">
+      <h2 class="partners-title">SUPPORTERS</h2>
+      <p class="partners-subtitle">
+        Partnering with world-class brands and visionary partners to create exceptional experiences. Building a better future together.
+      </p>
+    </div>
+
+    <div class:list={{ 'carousel-wrapper': true, 'single-partner': isSinglePartner }}>
+      <div class:list={{ 'carousel-track': true, 'single-item': isSinglePartner }}>
+        {allPartners.map((partner) => (
+          <div class="partner-item">
+            <div class="partner-card">
+              <a 
+                href={partner.website} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="partner-logo-link"
+                aria-label={`Visit ${partner.name}`}
+              >
+                <img 
+                  src={partner.logo} 
+                  alt={`${partner.name} logo`}
+                  class="partner-logo"
+                />
+              </a>
+              <div class="partner-info">
+                <h3 class="partner-name">{partner.name}</h3>
+                <p class="partner-description">{partner.description}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .partners-section {
+    padding: clamp(4rem, 8vw, 6rem) 0;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .partners-section::before,
+  .partners-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 150px;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .partners-section::before {
+    left: 0;
+    background: linear-gradient(90deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+  }
+
+  .partners-section::after {
+    right: 0;
+    background: linear-gradient(270deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+  }
+
+  .partners-container {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .partners-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .partners-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    color: #1a1a2e;
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .partners-subtitle {
+    font-size: 1rem;
+    color: #64748b;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .carousel-wrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .carousel-wrapper.single-partner {
+    display: flex;
+    justify-content: center;
+  }
+
+  .carousel-track {
+    display: flex;
+    gap: clamp(4rem, 8vw, 8rem);
+    animation: scroll 40s linear infinite;
+    width: fit-content;
+  }
+
+  .carousel-track:hover {
+    animation-play-state: paused;
+  }
+
+  .carousel-track.single-item {
+    animation: none;
+    margin: 0 auto;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .partner-item {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: clamp(320px, 28vw, 400px);
+  }
+
+  .partner-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .partner-logo-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: clamp(220px, 24vw, 210px);
+    padding: 0rem;
+    border-radius: 16px;
+    background: rgba(248, 250, 252, 0.5);
+    transition: all 0.3s ease;
+  }
+
+  .partner-logo-link:hover {
+    transform: scale(1.05);
+    background: rgba(248, 250, 252, 0.8);
+  }
+
+  .partner-logo {
+    width: 50%;
+    height: 50%;
+    object-fit: contain;
+    filter: grayscale(100%) brightness(0.8);
+    opacity: 0.6;
+    transition: all 0.4s ease;
+  }
+
+  .partner-logo-link:hover .partner-logo {
+    filter: grayscale(0%) brightness(1);
+    opacity: 1;
+  }
+
+  .partner-info {
+    text-align: center;
+    width: 100%;
+  }
+
+  .partner-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin: 0rem;
+    transition: all 0.3s ease;
+  }
+
+  .partner-card:hover .partner-name {
+    background: linear-gradient(135deg, #002A8F, #CF142B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .partner-description {
+    font-size: 0.95rem;
+    color: #64748b;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin: 0.3rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .partners-section::before,
+    .partners-section::after {
+      width: 80px;
+    }
+
+    .partners-title {
+      font-size: clamp(1.5rem, 6vw, 2rem);
+      letter-spacing: 1px;
+    }
+
+    .partners-subtitle {
+      font-size: 0.9rem;
+    }
+
+    .carousel-track {
+      gap: clamp(3rem, 10vw, 5rem);
+      animation: scroll 30s linear infinite;
+    }
+
+    .partner-item {
+      width: clamp(260px, 85vw, 360px);
+    }
+
+    .partner-logo-link {
+      height: clamp(200px, 50vw, 240px);
+      padding: clamp(1rem, 4vw, 1.75rem);
+    }
+
+    .partner-logo {
+      max-width: 90%;
+      max-height: 90%;
+    }
+
+    .partner-name {
+      font-size: 1.25rem;
+    }
+
+    .partner-description {
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .carousel-track {
+      animation: none;
+    }
+  }
+</style>

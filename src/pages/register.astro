@@ -1,0 +1,650 @@
+---
+// src/pages/register.astro
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+---
+
+<Layout>
+  <Header showBackButton={true} />
+
+  <!-- Registration Section -->
+  <section class="register-section">
+    <div class="register-container">
+      <!-- Form Content -->
+      <div id="formContent">
+        <div class="register-header">
+          <div class="header-badge">
+            <span class="badge-dot"></span>
+            Join the Revolution
+          </div>
+          <h1 class="register-title">
+            Be Part of the <span class="gradient-text">Free Cuban Economy</span>
+          </h1>
+          <p class="register-subtitle">
+            Connect with innovators, build on blockchain, and help forge a borderless future for Cuban talent.
+          </p>
+        </div>
+
+        <div class="registration-form">
+          <!-- Full Name -->
+          <div class="form-group">
+            <label for="fullName" class="form-label">
+              Full Name <span class="required">*</span>
+            </label>
+            <input
+              type="text"
+              id="fullName"
+              name="fullName"
+              class="form-input"
+              placeholder="Enter your full name"
+            />
+            <span class="error-message" id="fullNameError"></span>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="email" class="form-label">
+              Email Address <span class="required">*</span>
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-input"
+              placeholder="your.email@example.com"
+            />
+            <span class="error-message" id="emailError"></span>
+          </div>
+
+          <!-- Company (Optional) -->
+          <div class="form-group">
+            <label for="company" class="form-label">
+              Company / Organization
+              <span class="optional">Optional</span>
+            </label>
+            <input
+              type="text"
+              id="company"
+              name="company"
+              class="form-input"
+              placeholder="Your company or organization"
+            />
+          </div>
+
+          <!-- Role -->
+          <div class="form-group">
+            <label for="role" class="form-label">
+              Your Role <span class="required">*</span>
+            </label>
+            <select id="role" name="role" class="form-select">
+              <option value="">Select your role...</option>
+              <option value="freelancer">Freelancer</option>
+              <option value="investor">Investor</option>
+              <option value="client">Client</option>
+              <option value="ceo">CEO</option>
+              <option value="developer">Developer</option>
+            </select>
+            <span class="error-message" id="roleError"></span>
+          </div>
+
+          <!-- Referral Source -->
+          <div class="form-group">
+            <label for="referralSource" class="form-label">
+              How Did You Find Us? <span class="required">*</span>
+            </label>
+            <select id="referralSource" name="referralSource" class="form-select">
+              <option value="">How did you hear about us?</option>
+              <option value="facebook">Facebook</option>
+              <option value="instagram">Instagram</option>
+              <option value="twitter">Twitter/X</option>
+              <option value="linkedin">LinkedIn</option>
+              <option value="telegram">Telegram</option>
+              <option value="word-of-mouth">Word of mouth</option>
+              <option value="search-engine">Search engine</option>
+              <option value="other">Other</option>
+            </select>
+            <span class="error-message" id="referralSourceError"></span>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="button" id="submitBtn" class="submit-button">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M4.5 16.5c-1.5 1.25-2 5-2 5s3.75-.5 5-2c.5-.5.5-1 .5-1.5L6 16l-1.5 1.5z"/>
+              <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22 22 0 0 1-4 2z"/>
+              <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+              <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+            </svg>
+            Join RoyalForge Now
+          </button>
+
+          <p class="form-footer">
+            By joining, you'll receive updates about our community and will be redirected to our Telegram group.
+          </p>
+        </div>
+      </div>
+
+      <!-- Success Content (Initially Hidden) -->
+      <div id="successContent" style="display: none;">
+        <div class="success-container">
+          <div class="success-icon">
+            <svg width="64" height="64" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+          </div>
+          <h2 class="success-title">Welcome to RoyalForge!</h2>
+          <p class="success-message">
+            Thank you for joining our community, <strong id="userName"></strong>!
+          </p>
+          <div class="success-details">
+            <div class="success-item">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+              </svg>
+              <span>Welcome email sent to <span id="userEmail"></span></span>
+            </div>
+            <div class="success-item">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+              <span>Redirecting to Telegram community...</span>
+            </div>
+          </div>
+          <div class="loading-bar">
+            <div class="loading-progress" id="progressBar"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Decorative elements -->
+    <div class="floating-dots dot-1"></div>
+    <div class="floating-dots dot-2"></div>
+    <div class="floating-dots dot-3"></div>
+  </section>
+</Layout>
+
+<script>
+  // Form validation and submission
+  (function () {
+    const submitBtn = document.getElementById('submitBtn');
+    const fullNameInput = document.getElementById('fullName') as HTMLInputElement;
+    const emailInput = document.getElementById('email') as HTMLInputElement;
+    const companyInput = document.getElementById('company') as HTMLInputElement;
+    const roleSelect = document.getElementById('role') as HTMLSelectElement;
+    const referralSelect = document.getElementById('referralSource') as HTMLSelectElement;
+
+    const fullNameError = document.getElementById('fullNameError');
+    const emailError = document.getElementById('emailError');
+    const roleError = document.getElementById('roleError');
+    const referralSourceError = document.getElementById('referralSourceError');
+
+    const formContent = document.getElementById('formContent');
+    const successContent = document.getElementById('successContent');
+
+    if (!submitBtn || !fullNameInput || !emailInput || !roleSelect || !referralSelect) return;
+
+    const validateEmail = (email: string): boolean => {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    };
+
+    const clearError = (errorElement: HTMLElement | null, inputElement: HTMLElement | null) => {
+      if (errorElement) errorElement.textContent = '';
+      if (inputElement) inputElement.classList.remove('error');
+    };
+
+    const showError = (errorElement: HTMLElement | null, inputElement: HTMLElement | null, message: string) => {
+      if (errorElement) errorElement.textContent = message;
+      if (inputElement) inputElement.classList.add('error');
+    };
+
+    fullNameInput.addEventListener('input', () => clearError(fullNameError, fullNameInput));
+    emailInput.addEventListener('input', () => clearError(emailError, emailInput));
+    roleSelect.addEventListener('change', () => clearError(roleError, roleSelect));
+    referralSelect.addEventListener('change', () => clearError(referralSourceError, referralSelect));
+
+    const validateForm = (): boolean => {
+      let isValid = true;
+
+      if (!fullNameInput.value.trim()) {
+        showError(fullNameError, fullNameInput, 'Full name is required');
+        isValid = false;
+      }
+
+      if (!emailInput.value.trim()) {
+        showError(emailError, emailInput, 'Email is required');
+        isValid = false;
+      } else if (!validateEmail(emailInput.value)) {
+        showError(emailError, emailInput, 'Please enter a valid email address');
+        isValid = false;
+      }
+
+      if (!roleSelect.value) {
+        showError(roleError, roleSelect, 'Please select your role');
+        isValid = false;
+      }
+
+      if (!referralSelect.value) {
+        showError(referralSourceError, referralSelect, 'Please tell us how you found us');
+        isValid = false;
+      }
+
+      return isValid;
+    };
+
+    submitBtn.addEventListener('click', async () => {
+      if (!validateForm()) {
+        return;
+      }
+
+      const formData = {
+        fullName: fullNameInput.value.trim(),
+        email: emailInput.value.trim(),
+        company: companyInput?.value.trim() || '',
+        role: roleSelect.value,
+        referralSource: referralSelect.value
+      };
+
+      submitBtn.setAttribute('disabled', 'true');
+      submitBtn.innerHTML = '<span class="spinner"></span> Joining Community...';
+
+      try {
+        // Enviar datos a la API de SendGrid
+        const response = await fetch('/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          // Mostrar pantalla de éxito
+          if (formContent && successContent) {
+            formContent.style.display = 'none';
+            successContent.style.display = 'block';
+            
+            const userName = document.getElementById('userName');
+            const userEmail = document.getElementById('userEmail');
+            if (userName) userName.textContent = formData.fullName;
+            if (userEmail) userEmail.textContent = formData.email;
+            
+            const progressBar = document.getElementById('progressBar');
+            if (progressBar) {
+              progressBar.classList.add('active');
+            }
+            
+            // Redirigir después de 2 segundos
+            setTimeout(() => {
+              window.open('https://t.me/royalforge', '_blank');
+              window.location.href = '/';
+            }, 2000);
+          }
+        } else {
+          throw new Error(result.message || 'Registration failed');
+        }
+
+      } catch (error) {
+        console.error('Registration error:', error);
+        
+        alert('There was an error processing your registration. Please try again or contact us at info@royalforge.org');
+        
+        submitBtn.removeAttribute('disabled');
+        submitBtn.innerHTML = `
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M4.5 16.5c-1.5 1.25-2 5-2 5s3.75-.5 5-2c.5-.5.5-1 .5-1.5L6 16l-1.5 1.5z"/>
+            <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22 22 0 0 1-4 2z"/>
+            <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+            <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+          </svg>
+          Join RoyalForge Now
+        `;
+      }
+    });
+  })();
+</script>
+
+<style>
+  :root {
+    --royal-blue: #002A8F;
+    --royal-red: #CF142B;
+    --text-primary: #0f1724;
+    --text-secondary: #475569;
+    --bg-light: #fafafa;
+    --header-height: 64px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* Registration Section */
+  .register-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: calc(var(--header-height) + 3rem) 2rem 3rem;
+    background: linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .register-container {
+    background: white;
+    border-radius: 24px;
+    max-width: 650px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(0, 42, 143, 0.1);
+    position: relative;
+    z-index: 10;
+  }
+
+  .register-header {
+    padding: 3rem 3rem 2rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(0, 42, 143, 0.08);
+    padding: 0.5rem 1.2rem;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    color: var(--royal-blue);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+
+  .badge-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--royal-red);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .register-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, var(--royal-blue), var(--royal-red));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .register-subtitle {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .registration-form {
+    padding: 2.5rem 3rem 3rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.75rem;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .required {
+    color: var(--royal-red);
+    margin-left: 0.25rem;
+  }
+
+  .optional {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #94a3b8;
+    margin-left: 0.5rem;
+  }
+
+  .form-input,
+  .form-select {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-family: system-ui, -apple-system, sans-serif;
+    transition: all 0.2s;
+    background: white;
+    color: var(--text-primary);
+  }
+
+  .form-input:focus,
+  .form-select:focus {
+    outline: none;
+    border-color: var(--royal-blue);
+    box-shadow: 0 0 0 3px rgba(0, 42, 143, 0.1);
+  }
+
+  .form-input::placeholder {
+    color: #94a3b8;
+  }
+
+  .form-input.error,
+  .form-select.error {
+    border-color: var(--royal-red);
+  }
+
+  .error-message {
+    display: block;
+    color: var(--royal-red);
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    font-weight: 500;
+    min-height: 1.25rem;
+  }
+
+  .submit-button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    background: linear-gradient(135deg, var(--royal-blue), var(--royal-red));
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 20px rgba(0, 42, 143, 0.25);
+    margin-top: 0.5rem;
+  }
+
+  .submit-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px rgba(0, 42, 143, 0.35);
+  }
+
+  .submit-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .form-footer {
+    text-align: center;
+    font-size: 0.875rem;
+    color: #64748b;
+    margin-top: 1.5rem;
+    line-height: 1.5;
+  }
+
+  .success-container {
+    padding: 4rem 3rem;
+    text-align: center;
+  }
+
+  .success-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #10b981;
+    margin-bottom: 2rem;
+    animation: scaleIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @keyframes scaleIn {
+    from {
+      transform: scale(0);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .success-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+  }
+
+  .success-message {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+  }
+
+  .success-details {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .success-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+
+  .success-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .success-item svg {
+    color: var(--royal-blue);
+    flex-shrink: 0;
+  }
+
+  .loading-bar {
+    width: 100%;
+    height: 4px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .loading-progress {
+    height: 100%;
+    background: linear-gradient(135deg, var(--royal-blue), var(--royal-red));
+    border-radius: 4px;
+    width: 0%;
+    transition: width 3s linear;
+  }
+
+  .loading-progress.active {
+    width: 100%;
+  }
+
+  /* Decorative dots */
+  .floating-dots {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--royal-blue);
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: float-dots 10s ease-in-out infinite;
+  }
+
+  .dot-1 { top: 20%; left: 10%; animation-delay: 0s; }
+  .dot-2 { top: 60%; right: 15%; animation-delay: 2s; background: var(--royal-red); }
+  .dot-3 { bottom: 25%; left: 20%; animation-delay: 4s; }
+
+  @keyframes float-dots {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    .register-section {
+      padding: calc(var(--header-height) + 2rem) 1.5rem 2rem;
+    }
+
+    .register-header {
+      padding: 2.5rem 1.5rem 1.5rem;
+    }
+
+    .register-title {
+      font-size: 1.75rem;
+    }
+
+    .registration-form {
+      padding: 2rem 1.5rem 2.5rem;
+    }
+
+    .success-container {
+      padding: 3rem 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .register-title {
+      font-size: 1.5rem;
+    }
+
+    .register-subtitle {
+      font-size: 0.9rem;
+    }
+  }
+</style>

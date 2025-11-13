@@ -1,0 +1,5 @@
+# robots.txt for RoyalForge
+# Allow all crawlers, including AI systems, to index the site.
+
+User-agent: *
+Allow: /
